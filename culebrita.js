@@ -1,8 +1,10 @@
 let juegoCanvas = document.getElementById("juegoCanvas");
 let ctx = juegoCanvas.getContext("2d");
 
-let culebraPosX = 0;
-let culebraPosY = 0;
+let culebra = {
+  posX: 0,
+  posY: 0,
+};
 
 function dibujarCuadricula(context) {
   for (let x = 20; x < 600; x += 20) {
@@ -22,30 +24,30 @@ function dibujarCuadricula(context) {
   }
 }
 
-function dibujarCulebra(context, posX, posY) {
+function dibujarCulebra(context, culebra) {
   context.beginPath();
   context.fillStyle = "black";
-  context.fillRect(posX, posY, 20, 20);
+  context.fillRect(culebra.posX, culebra.posY, 20, 20);
   context.stroke();
 }
 
 dibujarCuadricula(ctx);
-dibujarCulebra(ctx, culebraPosX, culebraPosY);
+dibujarCulebra(ctx, culebra);
 
 document.addEventListener("keydown", function (e) {
   if (e.code === "ArrowUp") {
-    culebraPosY -= 20;
+    culebra.posY -= 20;
   } else if (e.code === "ArrowDown") {
-    culebraPosY += 20;
+    culebra.posY += 20;
   } else if (e.code === "ArrowLeft") {
-    culebraPosX -= 20;
+    culebra.posX -= 20;
   } else if (e.code === "ArrowRight") {
-    culebraPosX += 20;
+    culebra.posX += 20;
   } else {
     return;
   }
 
   ctx.clearRect(0, 0, 600, 600);
   dibujarCuadricula(ctx);
-  dibujarCulebra(ctx, culebraPosX, culebraPosY);
+  dibujarCulebra(ctx, culebra);
 });
