@@ -1,10 +1,12 @@
 let juegoCanvas = document.getElementById("juegoCanvas");
 let ctx = juegoCanvas.getContext("2d");
 
-let culebra = {
-  posX: 0,
-  posY: 0,
-};
+let culebra = [
+  { posX: 60, posY: 40 },
+  { posX: 60, posY: 20 },
+  { posX: 40, posY: 20 },
+  { posX: 20, posY: 20 },
+];
 
 function dibujarCuadricula(context) {
   for (let x = 20; x < 600; x += 20) {
@@ -25,10 +27,12 @@ function dibujarCuadricula(context) {
 }
 
 function dibujarCulebra(context, culebra) {
-  context.beginPath();
-  context.fillStyle = "black";
-  context.fillRect(culebra.posX, culebra.posY, 20, 20);
-  context.stroke();
+  for (let i = 0; i < culebra.length; i++) {
+    context.beginPath();
+    context.fillStyle = "black";
+    context.fillRect(culebra[i].posX, culebra[i].posY, 20, 20);
+    context.stroke();
+  }
 }
 
 dibujarCuadricula(ctx);
