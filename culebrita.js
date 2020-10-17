@@ -18,6 +18,8 @@ let culebra = [
 
 let direccionActual = DIRECCIONES.DERECHA;
 
+let ciclo;
+
 function moverCulebra(direccion, culebra) {
   let cabezaPosX = culebra[0].posX;
   let cabezaPosY = culebra[0].posY;
@@ -100,4 +102,8 @@ function cicloDeJuego() {
   dibujarCulebra(ctx, culebra);
 }
 
-setInterval(cicloDeJuego, FPS);
+juegoCanvas.addEventListener("click", function () {
+  if (ciclo === undefined) {
+    ciclo = setInterval(cicloDeJuego, FPS);
+  }
+});
