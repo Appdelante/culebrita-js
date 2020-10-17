@@ -1,3 +1,10 @@
+let DIRECCIONES = {
+  ARRIBA: 1,
+  ABAJO: 2,
+  IZQUIERDA: 3,
+  DERECHA: 4,
+};
+
 let juegoCanvas = document.getElementById("juegoCanvas");
 let ctx = juegoCanvas.getContext("2d");
 
@@ -7,6 +14,26 @@ let culebra = [
   { posX: 40, posY: 20 },
   { posX: 20, posY: 20 },
 ];
+
+function moverCulebra(nuevaDireccion, culebra) {
+  let cabezaPosX = culebra[0].posX;
+  let cabezaPosY = culebra[0].posY;
+
+  if (nuevaDireccion === DIRECCIONES.DERECHA) {
+    cabezaPosX += 20;
+  } else if (nuevaDireccion === DIRECCIONES.IZQUIERDA) {
+    cabezaPosX -= 20;
+  } else if (nuevaDireccion === DIRECCIONES.ABAJO) {
+    cabezaPosY += 20;
+  } else if (nuevaDireccion === DIRECCIONES.ARRIBA) {
+    cabezaPosY -= 20;
+  }
+
+  // Agregamos la nueva cabeza al principio de la lista
+  culebra.unshift({ posX: cabezaPosX, posY: cabezaPosY });
+  // Borramos la cola de la culebra
+  culebra.pop();
+}
 
 function dibujarCuadricula(context) {
   for (let x = 20; x < 600; x += 20) {
@@ -39,17 +66,21 @@ dibujarCuadricula(ctx);
 dibujarCulebra(ctx, culebra);
 
 document.addEventListener("keydown", function (e) {
+  let nuevaDireccion;
+
   if (e.code === "ArrowUp") {
-    culebra.posY -= 20;
+    nuevaDireccion = DIRECCIONES.ARRIBA;
   } else if (e.code === "ArrowDown") {
-    culebra.posY += 20;
+    nuevaDireccion = DIRECCIONES.ABAJO;
   } else if (e.code === "ArrowLeft") {
-    culebra.posX -= 20;
+    nuevaDireccion = DIRECCIONES.IZQUIERDA;
   } else if (e.code === "ArrowRight") {
-    culebra.posX += 20;
+    nuevaDireccion = DIRECCIONES.DERECHA;
   } else {
     return;
   }
+
+  moverCulebra(nuevaDireccion, culebra);
 
   ctx.clearRect(0, 0, 600, 600);
   dibujarCuadricula(ctx);
