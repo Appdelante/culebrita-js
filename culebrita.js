@@ -5,6 +5,8 @@ let DIRECCIONES = {
   DERECHA: 4,
 };
 
+let FPS = 1000 / 15;
+
 let juegoCanvas = document.getElementById("juegoCanvas");
 let ctx = juegoCanvas.getContext("2d");
 
@@ -88,9 +90,14 @@ document.addEventListener("keydown", function (e) {
   }
 
   direccionActual = nuevaDireccion;
+});
+
+function cicloDeJuego() {
   moverCulebra(direccionActual, culebra);
 
   ctx.clearRect(0, 0, 600, 600);
   dibujarCuadricula(ctx);
   dibujarCulebra(ctx, culebra);
-});
+}
+
+setInterval(cicloDeJuego, FPS);
