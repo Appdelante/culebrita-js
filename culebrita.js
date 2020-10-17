@@ -9,23 +9,24 @@ let juegoCanvas = document.getElementById("juegoCanvas");
 let ctx = juegoCanvas.getContext("2d");
 
 let culebra = [
-  { posX: 60, posY: 40 },
   { posX: 60, posY: 20 },
   { posX: 40, posY: 20 },
   { posX: 20, posY: 20 },
 ];
 
-function moverCulebra(nuevaDireccion, culebra) {
+let direccionActual = DIRECCIONES.DERECHA;
+
+function moverCulebra(direccion, culebra) {
   let cabezaPosX = culebra[0].posX;
   let cabezaPosY = culebra[0].posY;
 
-  if (nuevaDireccion === DIRECCIONES.DERECHA) {
+  if (direccion === DIRECCIONES.DERECHA) {
     cabezaPosX += 20;
-  } else if (nuevaDireccion === DIRECCIONES.IZQUIERDA) {
+  } else if (direccion === DIRECCIONES.IZQUIERDA) {
     cabezaPosX -= 20;
-  } else if (nuevaDireccion === DIRECCIONES.ABAJO) {
+  } else if (direccion === DIRECCIONES.ABAJO) {
     cabezaPosY += 20;
-  } else if (nuevaDireccion === DIRECCIONES.ARRIBA) {
+  } else if (direccion === DIRECCIONES.ARRIBA) {
     cabezaPosY -= 20;
   }
 
@@ -68,19 +69,26 @@ dibujarCulebra(ctx, culebra);
 document.addEventListener("keydown", function (e) {
   let nuevaDireccion;
 
-  if (e.code === "ArrowUp") {
+  if (e.code === "ArrowUp" && direccionActual !== DIRECCIONES.ABAJO) {
     nuevaDireccion = DIRECCIONES.ARRIBA;
-  } else if (e.code === "ArrowDown") {
+  } else if (e.code === "ArrowDown" && direccionActual !== DIRECCIONES.ARRIBA) {
     nuevaDireccion = DIRECCIONES.ABAJO;
-  } else if (e.code === "ArrowLeft") {
+  } else if (
+    e.code === "ArrowLeft" &&
+    direccionActual !== DIRECCIONES.DERECHA
+  ) {
     nuevaDireccion = DIRECCIONES.IZQUIERDA;
-  } else if (e.code === "ArrowRight") {
+  } else if (
+    e.code === "ArrowRight" &&
+    direccionActual !== DIRECCIONES.IZQUIERDA
+  ) {
     nuevaDireccion = DIRECCIONES.DERECHA;
   } else {
     return;
   }
 
-  moverCulebra(nuevaDireccion, culebra);
+  direccionActual = nuevaDireccion;
+  moverCulebra(direccionActual, culebra);
 
   ctx.clearRect(0, 0, 600, 600);
   dibujarCuadricula(ctx);
