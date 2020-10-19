@@ -23,7 +23,7 @@ let culebra = [
 let direccionActual = DIRECCIONES.DERECHA;
 let nuevaDireccion = DIRECCIONES.DERECHA;
 
-let comida = { posX: 100, posY: 100 };
+let comida = generarNuevaPosicionDeComida(culebra);
 
 let ciclo;
 
@@ -84,6 +84,29 @@ function moverCulebra(direccion, culebra) {
   culebra.unshift({ posX: cabezaPosX, posY: cabezaPosY });
   // Borramos la cola de la culebra
   culebra.pop();
+}
+
+/** Comida **/
+
+function generarNuevaPosicionDeComida(culebra) {
+  while (true) {
+    let posX = Math.floor(Math.random() * 29) * 20;
+    let posY = Math.floor(Math.random() * 29) * 20;
+
+    let colisionConCulebra = false;
+    for (let i = 0; i < culebra.length; i++) {
+      if (culebra[i].posX === posX && culebra[i].posY === posY) {
+        colisionConCulebra = true;
+        break;
+      }
+    }
+
+    if (colisionConCulebra === true) {
+      continue;
+    }
+
+    return { posX: posX, posY: posY };
+  }
 }
 
 /** Ciclo de Juego **/
