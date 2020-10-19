@@ -17,6 +17,7 @@ let culebra = [
 ];
 
 let direccionActual = DIRECCIONES.DERECHA;
+let nuevaDireccion = DIRECCIONES.DERECHA;
 
 let ciclo;
 
@@ -71,8 +72,6 @@ dibujarCuadricula(ctx);
 dibujarCulebra(ctx, culebra);
 
 document.addEventListener("keydown", function (e) {
-  let nuevaDireccion;
-
   if (e.code === "ArrowUp" && direccionActual !== DIRECCIONES.ABAJO) {
     nuevaDireccion = DIRECCIONES.ARRIBA;
   } else if (e.code === "ArrowDown" && direccionActual !== DIRECCIONES.ARRIBA) {
@@ -87,15 +86,12 @@ document.addEventListener("keydown", function (e) {
     direccionActual !== DIRECCIONES.IZQUIERDA
   ) {
     nuevaDireccion = DIRECCIONES.DERECHA;
-  } else {
-    return;
   }
-
-  direccionActual = nuevaDireccion;
 });
 
 function cicloDeJuego() {
-  moverCulebra(direccionActual, culebra);
+  moverCulebra(nuevaDireccion, culebra);
+  direccionActual = nuevaDireccion;
 
   ctx.clearRect(0, 0, 600, 600);
   dibujarCuadricula(ctx);
