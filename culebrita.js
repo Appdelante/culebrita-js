@@ -1,3 +1,5 @@
+/** Constantes **/
+
 let DIRECCIONES = {
   ARRIBA: 1,
   ABAJO: 2,
@@ -7,8 +9,10 @@ let DIRECCIONES = {
 
 let FPS = 1000 / 15;
 
-let juegoCanvas = document.getElementById("juegoCanvas");
-let ctx = juegoCanvas.getContext("2d");
+let JUEGO_CANVAS = document.getElementById("juegoCanvas");
+let CTX = JUEGO_CANVAS.getContext("2d");
+
+/** Estado del juego **/
 
 let culebra = [
   { posX: 60, posY: 20 },
@@ -21,25 +25,7 @@ let nuevaDireccion = DIRECCIONES.DERECHA;
 
 let ciclo;
 
-function moverCulebra(direccion, culebra) {
-  let cabezaPosX = culebra[0].posX;
-  let cabezaPosY = culebra[0].posY;
-
-  if (direccion === DIRECCIONES.DERECHA) {
-    cabezaPosX += 20;
-  } else if (direccion === DIRECCIONES.IZQUIERDA) {
-    cabezaPosX -= 20;
-  } else if (direccion === DIRECCIONES.ABAJO) {
-    cabezaPosY += 20;
-  } else if (direccion === DIRECCIONES.ARRIBA) {
-    cabezaPosY -= 20;
-  }
-
-  // Agregamos la nueva cabeza al principio de la lista
-  culebra.unshift({ posX: cabezaPosX, posY: cabezaPosY });
-  // Borramos la cola de la culebra
-  culebra.pop();
-}
+/** Dibujar **/
 
 function dibujarCuadricula(context) {
   for (let x = 20; x < 600; x += 20) {
@@ -68,8 +54,29 @@ function dibujarCulebra(context, culebra) {
   }
 }
 
-dibujarCuadricula(ctx);
-dibujarCulebra(ctx, culebra);
+/** Culebra **/
+
+function moverCulebra(direccion, culebra) {
+  let cabezaPosX = culebra[0].posX;
+  let cabezaPosY = culebra[0].posY;
+
+  if (direccion === DIRECCIONES.DERECHA) {
+    cabezaPosX += 20;
+  } else if (direccion === DIRECCIONES.IZQUIERDA) {
+    cabezaPosX -= 20;
+  } else if (direccion === DIRECCIONES.ABAJO) {
+    cabezaPosY += 20;
+  } else if (direccion === DIRECCIONES.ARRIBA) {
+    cabezaPosY -= 20;
+  }
+
+  // Agregamos la nueva cabeza al principio de la lista
+  culebra.unshift({ posX: cabezaPosX, posY: cabezaPosY });
+  // Borramos la cola de la culebra
+  culebra.pop();
+}
+
+/** Ciclo de Juego **/
 
 document.addEventListener("keydown", function (e) {
   if (e.code === "ArrowUp" && direccionActual !== DIRECCIONES.ABAJO) {
@@ -93,12 +100,15 @@ function cicloDeJuego() {
   moverCulebra(nuevaDireccion, culebra);
   direccionActual = nuevaDireccion;
 
-  ctx.clearRect(0, 0, 600, 600);
-  dibujarCuadricula(ctx);
-  dibujarCulebra(ctx, culebra);
+  CTX.clearRect(0, 0, 600, 600);
+  dibujarCuadricula(CTX);
+  dibujarCulebra(CTX, culebra);
 }
 
-juegoCanvas.addEventListener("click", function () {
+dibujarCuadricula(CTX);
+dibujarCulebra(CTX, culebra);
+
+JUEGO_CANVAS.addEventListener("click", function () {
   if (ciclo === undefined) {
     ciclo = setInterval(cicloDeJuego, FPS);
   }
