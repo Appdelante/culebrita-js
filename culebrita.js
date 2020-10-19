@@ -23,6 +23,8 @@ let culebra = [
 let direccionActual = DIRECCIONES.DERECHA;
 let nuevaDireccion = DIRECCIONES.DERECHA;
 
+let comida = { posX: 100, posY: 100 };
+
 let ciclo;
 
 /** Dibujar **/
@@ -45,13 +47,21 @@ function dibujarCuadricula(context) {
   }
 }
 
+function rellenarCuadrado(context, posX, posY) {
+  context.beginPath();
+  context.fillStyle = "black";
+  context.fillRect(posX, posY, 20, 20);
+  context.stroke();
+}
+
 function dibujarCulebra(context, culebra) {
   for (let i = 0; i < culebra.length; i++) {
-    context.beginPath();
-    context.fillStyle = "black";
-    context.fillRect(culebra[i].posX, culebra[i].posY, 20, 20);
-    context.stroke();
+    rellenarCuadrado(context, culebra[i].posX, culebra[i].posY);
   }
+}
+
+function dibujarComida(context, comida) {
+  rellenarCuadrado(context, comida.posX, comida.posY);
 }
 
 /** Culebra **/
@@ -103,10 +113,12 @@ function cicloDeJuego() {
   CTX.clearRect(0, 0, 600, 600);
   dibujarCuadricula(CTX);
   dibujarCulebra(CTX, culebra);
+  dibujarComida(CTX, comida);
 }
 
 dibujarCuadricula(CTX);
 dibujarCulebra(CTX, culebra);
+dibujarComida(CTX, comida);
 
 JUEGO_CANVAS.addEventListener("click", function () {
   if (ciclo === undefined) {
