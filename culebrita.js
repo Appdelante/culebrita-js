@@ -29,24 +29,6 @@ let ciclo;
 
 /** Dibujar **/
 
-function dibujarCuadricula(context) {
-  for (let x = 20; x < 600; x += 20) {
-    context.beginPath();
-    context.fillStyle = "black";
-    context.moveTo(x, 0);
-    context.lineTo(x, 600);
-    context.stroke();
-  }
-
-  for (let y = 20; y < 600; y += 20) {
-    context.beginPath();
-    context.fillStyle = "black";
-    context.moveTo(0, y);
-    context.lineTo(600, y);
-    context.stroke();
-  }
-}
-
 function rellenarCuadrado(context, posX, posY) {
   context.beginPath();
   context.fillStyle = "black";
@@ -62,6 +44,13 @@ function dibujarCulebra(context, culebra) {
 
 function dibujarComida(context, comida) {
   rellenarCuadrado(context, comida.posX, comida.posY);
+}
+
+function dibujarParedes(context) {
+  context.beginPath();
+  context.lineWidth = "2";
+  context.rect(20, 20, 560, 560);
+  context.stroke();
 }
 
 /** Culebra **/
@@ -94,8 +83,12 @@ function culebraComioComida(culebra, comida) {
 
 function generarNuevaPosicionDeComida(culebra) {
   while (true) {
-    let posX = Math.floor(Math.random() * 29) * 20;
-    let posY = Math.floor(Math.random() * 29) * 20;
+    // 0 <= Math.random() < 1
+    let columnaX = Math.max(Math.floor(Math.random() * 29), 1);
+    let columnaY = Math.max(Math.floor(Math.random() * 29), 1);
+
+    let posX = columnaX * 20;
+    let posY = columnaY * 20;
 
     let colisionConCulebra = false;
     for (let i = 0; i < culebra.length; i++) {
@@ -143,12 +136,12 @@ function cicloDeJuego() {
   }
 
   CTX.clearRect(0, 0, 600, 600);
-  dibujarCuadricula(CTX);
+  dibujarParedes(CTX);
   dibujarCulebra(CTX, culebra);
   dibujarComida(CTX, comida);
 }
 
-dibujarCuadricula(CTX);
+dibujarParedes(CTX);
 dibujarCulebra(CTX, culebra);
 dibujarComida(CTX, comida);
 
