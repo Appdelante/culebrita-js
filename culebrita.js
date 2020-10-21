@@ -106,6 +106,23 @@ function generarNuevaPosicionDeComida(culebra) {
   }
 }
 
+/** Colisiones **/
+
+function ocurrioColision(culebra) {
+  let cabeza = culebra[0];
+
+  if (
+    cabeza.posX < 20 ||
+    cabeza.posY < 20 ||
+    cabeza.posX >= 580 ||
+    cabeza.posY >= 580
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
 /** Ciclo de Juego **/
 
 document.addEventListener("keydown", function (e) {
@@ -133,6 +150,11 @@ function cicloDeJuego() {
   if (culebraComioComida(culebra, comida)) {
     culebra.push(colaDescartada);
     comida = generarNuevaPosicionDeComida(culebra);
+  }
+
+  if (ocurrioColision(culebra)) {
+    clearInterval(ciclo);
+    return;
   }
 
   CTX.clearRect(0, 0, 600, 600);
