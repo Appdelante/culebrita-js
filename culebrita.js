@@ -120,6 +120,16 @@ function ocurrioColision(culebra) {
     return true;
   }
 
+  if (culebra.length === 1) {
+    return false;
+  }
+
+  for (let i = 1; i < culebra.length; i++) {
+    if (cabeza.posX === culebra[i].posX && cabeza.posY === culebra[i].posY) {
+      return true;
+    }
+  }
+
   return false;
 }
 
