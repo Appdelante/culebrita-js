@@ -14,6 +14,8 @@ let CTX = JUEGO_CANVAS.getContext("2d");
 
 let PUNTOS_TEXTO = document.getElementById("puntos");
 
+let SONIDO_GANASTE_PUNTO = new Audio("ganaste_un_punto.wav");
+
 /** Estado del juego **/
 
 let culebra;
@@ -145,6 +147,7 @@ function mostrarPuntos(puntos) {
 function incrementarPuntaje() {
   puntos++;
   mostrarPuntos(puntos);
+  SONIDO_GANASTE_PUNTO.play();
 }
 
 /** Ciclo de Juego **/
