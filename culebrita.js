@@ -29,7 +29,7 @@ let puntos;
 
 function rellenarCuadrado(context, posX, posY) {
   context.beginPath();
-  context.fillStyle = "black";
+  context.fillStyle = "#2e490b";
   context.fillRect(posX, posY, 20, 20);
   context.stroke();
 }

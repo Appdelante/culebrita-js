@@ -1,5 +1,21 @@
+body {
+  background-color: royalblue;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  margin: 0;
+  height: 100%;
+}
+
+#titulo {
+  color: white;
+}
+
+#puntos {
+  color: greenyellow;
+}
+
 #juegoCanvas {
   border-style: solid;
   border-color: black;
   border-width: 1px;
+  background-color: #99c728;
 }
