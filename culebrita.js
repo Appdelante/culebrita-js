@@ -49,6 +49,13 @@ function dibujarParedes(context) {
   context.stroke();
 }
 
+function dibujarTexto(context, texto, x, y) {
+  context.font = "40px Arial";
+  context.textAlign = "center";
+  context.fillStyle = "black";
+  context.fillText(texto, x, y);
+}
+
 /** Culebra **/
 
 function moverCulebra(direccion, culebra) {
@@ -201,6 +208,8 @@ function empezarJuego() {
 }
 
 dibujarParedes(CTX);
+dibujarTexto(CTX, "¡Click para empezar!", 300, 260);
+dibujarTexto(CTX, "Muévete con ↑ ↓ → ←", 300, 310);
 
 JUEGO_CANVAS.addEventListener("click", function () {
   if (ciclo === undefined) {
