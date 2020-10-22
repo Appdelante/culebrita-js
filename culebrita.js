@@ -16,18 +16,12 @@ let PUNTOS_TEXTO = document.getElementById("puntos");
 
 /** Estado del juego **/
 
-let culebra = [
-  { posX: 60, posY: 20 },
-  { posX: 40, posY: 20 },
-  { posX: 20, posY: 20 },
-];
-
-let direccionActual = DIRECCIONES.DERECHA;
-let nuevaDireccion = DIRECCIONES.DERECHA;
-
-let comida = generarNuevaPosicionDeComida(culebra);
+let culebra;
+let direccionActual;
+let nuevaDireccion;
+let comida;
 let ciclo;
-let puntos = 0;
+let puntos;
 
 /** Dibujar **/
 
@@ -137,13 +131,13 @@ function ocurrioColision(culebra) {
 
 /** Puntaje **/
 
-function mostrarPuntosActuales(puntos) {
+function mostrarPuntos(puntos) {
   PUNTOS_TEXTO.innerText = "PUNTOS: " + puntos;
 }
 
 function incrementarPuntaje() {
   puntos++;
-  mostrarPuntosActuales(puntos);
+  mostrarPuntos(puntos);
 }
 
 /** Ciclo de Juego **/
@@ -178,6 +172,7 @@ function cicloDeJuego() {
 
   if (ocurrioColision(culebra)) {
     clearInterval(ciclo);
+    ciclo = undefined;
     return;
   }
 
@@ -187,12 +182,28 @@ function cicloDeJuego() {
   dibujarComida(CTX, comida);
 }
 
+function empezarJuego() {
+  culebra = [
+    { posX: 60, posY: 20 },
+    { posX: 40, posY: 20 },
+    { posX: 20, posY: 20 },
+  ];
+
+  direccionActual = DIRECCIONES.DERECHA;
+  nuevaDireccion = DIRECCIONES.DERECHA;
+
+  comida = generarNuevaPosicionDeComida(culebra);
+  puntos = 0;
+
+  mostrarPuntos(puntos);
+
+  ciclo = setInterval(cicloDeJuego, FPS);
+}
+
 dibujarParedes(CTX);
-dibujarCulebra(CTX, culebra);
-dibujarComida(CTX, comida);
 
 JUEGO_CANVAS.addEventListener("click", function () {
   if (ciclo === undefined) {
-    ciclo = setInterval(cicloDeJuego, FPS);
+    empezarJuego();
   }
 });
