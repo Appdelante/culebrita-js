@@ -178,8 +178,7 @@ function cicloDeJuego() {
   }
 
   if (ocurrioColision(culebra)) {
-    clearInterval(ciclo);
-    ciclo = undefined;
+    gameOver();
     return;
   }
 
@@ -187,6 +186,13 @@ function cicloDeJuego() {
   dibujarParedes(CTX);
   dibujarCulebra(CTX, culebra);
   dibujarComida(CTX, comida);
+}
+
+function gameOver() {
+  clearInterval(ciclo);
+  ciclo = undefined;
+  dibujarTexto(CTX, "¡Fin del Juego!", 300, 260);
+  dibujarTexto(CTX, "Click para volver a jugar", 300, 310);
 }
 
 function empezarJuego() {
