@@ -13,6 +13,20 @@ body {
   color: greenyellow;
 }
 
+#contenedorJuego {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: hidden;
+}
+
+#contenedorNintendo {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 #juegoCanvas {
   border-style: solid;
   border-color: black;
