@@ -8,10 +8,15 @@ body {
 
 #titulo {
   color: white;
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 #puntos {
   color: greenyellow;
+  margin-left: 52px;
+  margin-bottom: 10px;
 }
 
 #contenedorJuego {
@@ -24,7 +29,6 @@ body {
   width: 50%;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 #juegoOverlay {
