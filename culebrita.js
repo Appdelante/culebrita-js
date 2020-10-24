@@ -12,9 +12,13 @@ let FPS = 1000 / 15;
 let JUEGO_CANVAS = document.getElementById("juegoCanvas");
 let CTX = JUEGO_CANVAS.getContext("2d");
 
+let CONTENEDOR_NINTENDO = document.getElementById("contenedorNintendo");
+
 let PUNTOS_TEXTO = document.getElementById("puntos");
 
 let SONIDO_GANASTE_PUNTO = new Audio("ganaste_un_punto.wav");
+
+let CSS_CLASE_SACUDIR_HORIZONTALMENTE = "shake-horizontal";
 
 /** Estado del juego **/
 
@@ -196,6 +200,7 @@ function gameOver() {
   ciclo = undefined;
   dibujarTexto(CTX, "¡Fin del Juego!", 300, 260);
   dibujarTexto(CTX, "Click para volver a jugar", 300, 310);
+  CONTENEDOR_NINTENDO.classList.add(CSS_CLASE_SACUDIR_HORIZONTALMENTE);
 }
 
 function empezarJuego() {
@@ -212,6 +217,8 @@ function empezarJuego() {
   puntos = 0;
 
   mostrarPuntos(puntos);
+
+  CONTENEDOR_NINTENDO.classList.remove(CSS_CLASE_SACUDIR_HORIZONTALMENTE);
 
   ciclo = setInterval(cicloDeJuego, FPS);
 }
