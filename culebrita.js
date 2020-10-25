@@ -13,7 +13,6 @@ let JUEGO_CANVAS = document.getElementById("juegoCanvas");
 let CTX = JUEGO_CANVAS.getContext("2d");
 
 let CONTENEDOR_NINTENDO = document.getElementById("contenedorNintendo");
-
 let PUNTOS_TEXTO = document.getElementById("puntos");
 
 let SONIDO_GANASTE_PUNTO = new Audio("ganaste_un_punto.wav");
@@ -56,7 +55,7 @@ function dibujarParedes(context) {
 }
 
 function dibujarTexto(context, texto, x, y) {
-  context.font = "40px Arial";
+  context.font = "38px Arial";
   context.textAlign = "center";
   context.fillStyle = "black";
   context.fillText(texto, x, y);
@@ -225,10 +224,22 @@ function empezarJuego() {
 
 dibujarParedes(CTX);
 dibujarTexto(CTX, "¡Click para empezar!", 300, 260);
-dibujarTexto(CTX, "Muévete con ↑ ↓ → ←", 300, 310);
+dibujarTexto(CTX, "Desktop: Muévete con ↑ ↓ → ←", 300, 310);
+dibujarTexto(CTX, "Móbil: Tap para girar la culebra", 300, 360);
 
 JUEGO_CANVAS.addEventListener("click", function () {
   if (ciclo === undefined) {
     empezarJuego();
+    return;
+  }
+
+  if (direccionActual === DIRECCIONES.ABAJO) {
+    nuevaDireccion = DIRECCIONES.IZQUIERDA;
+  } else if (direccionActual === DIRECCIONES.IZQUIERDA) {
+    nuevaDireccion = DIRECCIONES.ARRIBA;
+  } else if (direccionActual === DIRECCIONES.ARRIBA) {
+    nuevaDireccion = DIRECCIONES.DERECHA;
+  } else if (direccionActual === DIRECCIONES.DERECHA) {
+    nuevaDireccion = DIRECCIONES.ABAJO;
   }
 });
