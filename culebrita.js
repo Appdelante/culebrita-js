@@ -14,10 +14,14 @@ let CTX = JUEGO_CANVAS.getContext("2d");
 
 let CONTENEDOR_NINTENDO = document.getElementById("contenedorNintendo");
 let PUNTOS_TEXTO = document.getElementById("puntos");
+let BANNER_ROTAR_TELEFONO = document.getElementById("bannerRotarTelefono");
+let TITULO = document.getElementById("titulo");
+let BOTON_CERRAR_BANNER = document.getElementById("botonCerrarBanner");
 
 let SONIDO_GANASTE_PUNTO = new Audio("ganaste_un_punto.wav");
 
 let CSS_CLASE_SACUDIR_HORIZONTALMENTE = "shake-horizontal";
+let CSS_CLASE_ESCONDER = "esconder";
 
 /** Estado del juego **/
 
@@ -152,6 +156,18 @@ function incrementarPuntaje() {
   mostrarPuntos(puntos);
   SONIDO_GANASTE_PUNTO.play();
 }
+
+/** Responsive **/
+
+window.addEventListener("orientationchange", function () {
+  TITULO.classList.add(CSS_CLASE_ESCONDER);
+  BANNER_ROTAR_TELEFONO.classList.remove(CSS_CLASE_ESCONDER);
+});
+
+BOTON_CERRAR_BANNER.addEventListener("click", function () {
+  TITULO.classList.remove(CSS_CLASE_ESCONDER);
+  BANNER_ROTAR_TELEFONO.classList.add(CSS_CLASE_ESCONDER);
+});
 
 /** Ciclo de Juego **/
 
